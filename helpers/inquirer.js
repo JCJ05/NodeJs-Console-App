@@ -121,10 +121,31 @@ const viewName = async (nombre = '') => {
 
 }
 
+ const viewResult = async (cant) => {
+
+    console.clear();
+    console.log('***   ======================================   ***'.blue);
+    console.log('       *******  QUIZ - APP - SOCCER  *******       '.yellow);
+    console.log('***   ======================================   ***'.blue);
+   
+    const quizzName = {
+
+        type: 'input',
+        name: 'enter',
+        message: `\n Tuvo ${cant} respuestas correctas Presione ${'ENTER'.green} para volver al menu principal\n`
+    }
+
+    await inquirer.prompt(quizzName);
+
+}
+
 const gameModes = async () => {
-  
+    
+    console.clear();
+    console.log('***   ======================================   ***'.blue);
+    console.log('       *******  QUIZ - APP - MODES  *******       '.yellow);
+    console.log('***   ======================================   ***'.blue);
     const {mode} = await inquirer.prompt(modes);
-    console.log(mode);
     return mode;
 
 }
@@ -138,6 +159,13 @@ const viewQuestions = async (id = '') => {
 }
 
 const viewOptions = async (ques = [] , id) => {
+     
+    console.clear();
+    console.log('***   ======================================   ***'.blue);
+    console.log('       *******  QUIZ - APP - SOCCER  *******       '.yellow);
+    console.log('***   ======================================   ***'.blue);
+
+    let correct = false;
 
       const {question , answer , options} = ques.find(value => value.id == id);
       let quizz = [
@@ -153,7 +181,14 @@ const viewOptions = async (ques = [] , id) => {
       ]
 
       const {option} = await inquirer.prompt(quizz);
-      return option;
+     
+      if(option == answer){
+    
+        correct = true;
+
+      }
+
+      return correct;
 
 }
 
@@ -163,5 +198,6 @@ module.exports = {
     viewName,
     gameModes,
     viewQuestions,
-    viewOptions
+    viewOptions,
+    viewResult
 }
