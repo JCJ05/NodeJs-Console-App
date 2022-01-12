@@ -121,6 +121,19 @@ const viewName = async (nombre = '') => {
 
 }
 
+const viewList = async (nombre = '') => {
+   
+    const quizzName = {
+
+        type: 'input',
+        name: 'enter',
+        message: `\n Estos son los resultados Presione ${'ENTER'.green} para volver al menu \n`
+    }
+
+    await inquirer.prompt(quizzName);
+
+}
+
  const viewResult = async (cant) => {
 
     console.clear();
@@ -199,5 +212,6 @@ module.exports = {
     gameModes,
     viewQuestions,
     viewOptions,
-    viewResult
+    viewResult,
+    viewList
 }

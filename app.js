@@ -1,6 +1,9 @@
 require('colors');
+const { listParticipants } = require('./helpers/crud');
 const { requestName} = require('./helpers/getNombre');
-const { viewMenu, viewName, gameModes, viewQuestions, viewOptions, viewResult } = require('./helpers/inquirer');
+const { leerDB, guardarDB } = require('./helpers/guardarParticipante');
+const { viewMenu, viewName, gameModes, viewQuestions, viewOptions, viewResult, viewList } = require('./helpers/inquirer');
+const Participante = require('./models/participante');
 
 
 const main = async () => {
@@ -12,6 +15,15 @@ const main = async () => {
     let number = '';
     let count = 0;
     let resp = 0;
+    let participantsDb = [];
+
+      participantsDb = leerDB();
+
+    if(!participantsDb){
+     
+       participantsDb = [];
+
+    }
     
     do {
 
@@ -39,14 +51,20 @@ const main = async () => {
                       } while (count != 4);
 
                       await viewResult(resp);
+                      let participante = new Participante(nombre , 'Deportes' , resp);
+                      participantsDb.push(participante)
+                      guardarDB(participantsDb);
                       count = 0;
                       resp = 0;
                       break;
+
+              case '2': await listParticipants(participantsDb);await viewList(); break;
         
             default:
                 break;
         }
 
+    
         
     } while (option !== '0');
 

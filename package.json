@@ -18,6 +18,7 @@
   "homepage": "https://github.com/JCJ05/NodeJs-Console-App#readme",
   "dependencies": {
     "colors": "^1.4.0",
-    "inquirer": "^8.2.0"
+    "inquirer": "^8.2.0",
+    "uuidv4": "^6.2.12"
   }
 }
