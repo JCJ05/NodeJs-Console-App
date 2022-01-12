@@ -1,4 +1,5 @@
 const inquirer = require('inquirer');
+const { quizzQuestions } = require('../data/questions');
 require('colors');
 
 const questions = [
@@ -51,6 +52,49 @@ const questions = [
 
 ]
 
+const modes = [
+  
+    {
+    
+        type: 'list',
+        name: 'mode',
+        message: 'Elige el modo de cuestionario que quieras realizar',
+        choices: [
+         
+            {
+            
+                value: '1',
+                name: `${'1'.red} Deportes`
+
+            },
+
+            {
+              
+                value: '2',
+                name: `${'2'.yellow} Historia`
+
+            },
+
+            {
+
+                value: '3',
+                name: `${'3'.green} Computacion`
+
+            },
+
+            {
+
+                value: '4',
+                name: `${'4'.grey} Ciencia`
+
+            }
+
+        ]
+
+    }
+
+]
+
 
 const viewMenu = async () => {
 
@@ -79,12 +123,45 @@ const viewName = async (nombre = '') => {
 
 const gameModes = async () => {
   
-    
+    const {mode} = await inquirer.prompt(modes);
+    console.log(mode);
+    return mode;
+
+}
+
+const viewQuestions = async (id = '') => {
+   
+   const {questions} = quizzQuestions.find(question => question.id == id);
+   
+   return questions;
+
+}
+
+const viewOptions = async (ques = [] , id) => {
+
+      const {question , answer , options} = ques.find(value => value.id == id);
+      let quizz = [
+          
+        {
+            type: 'list',
+            name: 'option',
+            message: question,
+            choices: options
+
+        }
+
+      ]
+
+      const {option} = await inquirer.prompt(quizz);
+      return option;
 
 }
 
 module.exports = {
 
     viewMenu,
-    viewName
+    viewName,
+    gameModes,
+    viewQuestions,
+    viewOptions
 }
